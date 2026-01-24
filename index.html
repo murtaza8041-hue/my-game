@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Space Shooter - HTML5 Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">🚀 <span>SPACE SHOOTER</span></div>
+            <div class="nav-links">
+                <a href="#game">Play</a>
+                <a href="#instructions">Instructions</a>
+                <a href="#about">About</a>
+            </div>
+            <button class="mobile-menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>SPACE SHOOTER</h1>
+            <p class="subtitle">Defend Earth from alien invasion!</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="number">∞</span>
+                    <span class="label">Free to Play</span>
+                </div>
+                <div class="stat">
+                    <span class="number">100%</span>
+                    <span class="label">Browser Based</span>
+                </div>
+                <div class="stat">
+                    <span class="number">🎮</span>
+                    <span class="label">Keyboard/Touch</span>
+                </div>
+            </div>
+            <button id="playBtn" class="cta-btn">▶ PLAY NOW</button>
+        </div>
+        <div class="hero-bg"></div>
+    </header>
+
+    <!-- Game Container -->
+    <main class="container">
+        <section id="game" class="game-section">
+            <div class="game-header">
+                <h2>GAME AREA</h2>
+                <div class="game-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">SCORE</span>
+                        <span id="score" class="stat-value">00000</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">LIVES</span>
+                        <span id="lives" class="stat-value">❤️❤️❤️</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">LEVEL</span>
+                        <span id="level" class="stat-value">01</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">HIGH SCORE</span>
+                        <span id="highScore" class="stat-value">00000</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-container">
+                <!-- Game Controls -->
+                <div class="controls-bar">
+                    <button id="pauseBtn" class="control-btn">⏸ PAUSE</button>
+                    <button id="restartBtn" class="control-btn">🔄 RESTART</button>
+                    <button id="soundBtn" class="control-btn">🔊 SOUND ON</button>
+                    <button id="fullscreenBtn" class="control-btn">⛶ FULLSCREEN</button>
+                </div>
+
+                <!-- Game Canvas -->
+                <div class="canvas-wrapper">
+                    <canvas id="gameCanvas"></canvas>
+                    
+                    <!-- Start Screen -->
+                    <div id="startScreen" class="overlay-screen active">
+                        <div class="overlay-content">
+                            <h2>SPACE SHOOTER</h2>
+                            <div class="instructions">
+                                <p>🚀 <strong>Mission:</strong> Destroy alien ships before they reach Earth!</p>
+                                <p>🎯 <strong>Controls:</strong></p>
+                                <div class="control-keys">
+                                    <div class="key-row">
+                                        <span class="key">←</span>
+                                        <span class="key">→</span>
+                                        <span>Move Spaceship</span>
+                                    </div>
+                                    <div class="key-row">
+                                        <span class="key">SPACE</span>
+                                        <span>Fire Laser</span>
+                                    </div>
+                                    <div class="key-row">
+                                        <span class="key">P</span>
+                                        <span>Pause Game</span>
+                                    </div>
+                                </div>
+                                <p>🎮 <strong>Touch Controls:</strong> Buttons below for mobile</p>
+                            </div>
+                            <button id="startBtn" class="start-btn">🚀 START MISSION</button>
+                        </div>
+                    </div>
+
+                    <!-- Game Over Screen -->
+                    <div id="gameOverScreen" class="overlay-screen">
+                        <div class="overlay-content">
+                            <h2>MISSION FAILED!</h2>
+                            <div class="result-stats">
+                                <p>Final Score: <span id="finalScore">00000</span></p>
+                                <p>Level Reached: <span id="finalLevel">01</span></p>
+                                <p>Aliens Destroyed: <span id="aliensDestroyed">0</span></p>
+                            </div>
+                            <div class="result-actions">
+                                <button id="playAgainBtn" class="action-btn">🔄 PLAY AGAIN</button>
+                                <button id="shareBtn" class="action-btn">📢 SHARE SCORE</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Level Complete Screen -->
+                    <div id="levelCompleteScreen" class="overlay-screen">
+                        <div class="overlay-content">
+                            <h2>LEVEL COMPLETE! 🎉</h2>
+                            <p>Get ready for the next wave!</p>
+                            <button id="nextLevelBtn" class="action-btn">➡️ NEXT LEVEL</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Controls -->
+                <div class="mobile-controls">
+                    <div class="movement-controls">
+                        <button id="leftBtn" class="movement-btn">←</button>
+                        <div class="center-space"></div>
+                        <button id="rightBtn" class="movement-btn">→</button>
+                    </div>
+                    <div class="action-controls">
+                        <button id="shootBtn" class="action-btn">🔥 FIRE</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Section -->
+        <section id="instructions" class="instructions-section">
+            <h2>🎮 HOW TO PLAY</h2>
+            <div class="instructions-grid">
+                <div class="instruction-card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Objective</h3>
+                    <p>Destroy alien ships before they reach the bottom of the screen. Each alien destroyed increases your score.</p>
+                </div>
+                <div class="instruction-card">
+                    <div class="card-icon">🚀</div>
+                    <h3>Controls</h3>
+                    <ul>
+                        <li><strong>Arrow Keys:</strong> Move spaceship left/right</li>
+                        <li><strong>Spacebar:</strong> Fire laser</li>
+                        <li><strong>P Key:</strong> Pause game</li>
+                        <li><strong>Touch:</strong> Use on-screen buttons</li>
+                    </ul>
+                </div>
+                <div class="instruction-card">
+                    <div class="card-icon">⭐</div>
+                    <h3>Scoring</h3>
+                    <ul>
+                        <li>Small Alien: 100 points</li>
+                        <li>Medium Alien: 250 points</li>
+                        <li>Large Alien: 500 points</li>
+                        <li>Boss Alien: 1000 points</li>
+                        <li>Power-up: 50 points</li>
+                    </ul>
+                </div>
+                <div class="instruction-card">
+                    <div class="card-icon">💥</div>
+                    <h3>Power-ups</h3>
+                    <p>Collect falling power-ups for special abilities:</p>
+                    <ul>
+                        <li>🔥 Rapid Fire: Faster shooting</li>
+                        <li>🛡️ Shield: Temporary protection</li>
+                        <li>💣 Bomb: Destroy all aliens</li>
+                        <li>⭐ Extra Life: Gain one life</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <h2>👨‍💻 ABOUT THIS GAME</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Space Shooter v1.0</h3>
+                    <p>This game is built entirely with HTML5, CSS3, and vanilla JavaScript. No frameworks, no libraries - just pure web technologies!</p>
+                    
+                    <div class="features">
+                        <h4>✨ Features:</h4>
+                        <ul>
+                            <li>🎨 Pixel-perfect graphics with Canvas API</li>
+                            <li>🎮 Smooth 60FPS gameplay</li>
+                            <li>📱 Full mobile support with touch controls</li>
+                            <li>💾 Local storage for high scores</li>
+                            <li>🎵 Sound effects and visual feedback</li>
+                            <li>⚡ Progressive Web App ready</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tech-stack">
+                        <h4>🛠️ Technologies Used:</h4>
+                        <div class="tech-icons">
+                            <span class="tech-icon">HTML5</span>
+                            <span class="tech-icon">CSS3</span>
+                            <span class="tech-icon">JavaScript</span>
+                            <span class="tech-icon">Canvas API</span>
+                            <span class="tech-icon">Web Audio API</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-image">
+                    <div class="code-preview">
+                        <pre><code>// Game Loop Example
+function gameLoop() {
+    updateGame();
+    renderGame();
+    requestAnimationFrame(gameLoop);
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leaderboard -->
+        <section class="leaderboard-section">
+            <h2>🏆 LEADERBOARD</h2>
+            <div class="leaderboard-container">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Player</th>
+                            <th>Score</th>
+                            <th>Level</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody">
+                        <!-- Filled by JavaScript -->
+                    </tbody>
+                </table>
+                <button id="clearScoresBtn" class="clear-btn">Clear All Scores</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Space Shooter</h3>
+                <p>A fun HTML5 game by <strong>Murtaza</strong></p>
+                <p>Made with ❤️ for the GitHub community</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Share the Game</h3>
+                <div class="social-links">
+                    <button class="social-btn twitter">🐦 Twitter</button>
+                    <button class="social-btn facebook">📘 Facebook</button>
+                    <button class="social-btn link">🔗 Copy Link</button>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Game Info</h3>
+                <p><strong>Version:</strong> 1.0.0</p>
+                <p><strong>Last Updated:</strong> <span id="currentDate"></span></p>
+                <p><strong>Players Online:</strong> <span id="playerCount">1</span></p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2024 Space Shooter Game. All game assets created with AI assistance. Free to play and share!</p>
+            <p class="footer-links">
+                <a href="#">Privacy Policy</a> • 
+                <a href="#">Terms of Service</a> • 
+                <a href="https://github.com/murtaza8041-hue/my-game">GitHub Repo</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="game.js"></script>
+    <script src="ui.js"></script>
+    
+    <!-- Game Sounds (Base64 encoded to avoid separate files) -->
+    <audio id="shootSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ" type="audio/wav">
+    </audio>
+    
+    <audio id="explosionSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ" type="audio/wav">
+    </audio>
+</body>
+</html>
